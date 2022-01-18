@@ -21,4 +21,6 @@ workflows:
   heroku_deploy:
     jobs:
       - deploy
-      - back_up
+      - back_up:
+          requires:
+            - deploy
