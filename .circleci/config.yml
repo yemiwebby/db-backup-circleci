@@ -14,8 +14,8 @@ jobs:
       - image: cimg/node:12.16
     steps:
       - run:
-        name: Database backup
-        command: npm run backup
+          name: Database backup
+          command: npm run backup
 
 workflows:
   deploy:
