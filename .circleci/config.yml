@@ -2,7 +2,7 @@ version: 2.1
 orbs:
   heroku: circleci/heroku@1.2.6
 jobs:
-  build:
+  deploy:
     executor: heroku/default
     steps:
       - checkout
@@ -18,8 +18,7 @@ jobs:
           command: npm run backup
 
 workflows:
-  deploy:
+  heroku_deploy:
     jobs:
-      - build:
-          force: true
+      - deploy
       - back_up
