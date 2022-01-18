@@ -1,8 +1,25 @@
 version: 2.1
 orbs:
   heroku: circleci/heroku@1.2.6
-workflows:
-  heroku_deploy:
-    jobs:
+jobs:
+  build:
+    executor: heroku/default
+    steps:
+      - checkout
+      - heroku/install
       - heroku/deploy-via-git:
           force: true
+  back_up:
+    docker:
+      - image: cimg/node:12.16
+    steps:
+      - run:
+        name: Database backup
+        command: npm run backup
+
+workflows:
+  deploy:
+    jobs:
+      - build:
+          force: true
+      - back_up
