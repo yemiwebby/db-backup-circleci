@@ -10,12 +10,14 @@ jobs:
       - heroku/deploy-via-git:
           force: true
   back_up:
-    docker:
-      - image: cimg/node:12.16
+    executor: heroku/default
     steps:
-      - run:
-          name: Database backup
-          command: npm run backup
+      - checkout
+      - heroku/install
+      -heroku/deploy-via-git:
+          force: true
+          post-steps:
+            - run: npm run backup
 
 workflows:
   heroku_deploy:
