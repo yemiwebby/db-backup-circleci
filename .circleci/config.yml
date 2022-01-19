@@ -10,17 +10,15 @@ jobs:
       - heroku/deploy-via-git:
           force: true
   back_up:
-    executor: heroku/default
+    docker:
+      - image: cimg/node:17.4.0
     steps:
-      docker:
-        - image: cimg/node:17.4.0
-      steps:
-        - checkout
-        - run: node --version
-        - heroku/install
-        - heroku/deploy-via-git:
-            force: true
-        - run: npm run backup
+      - checkout
+      - run: node --version
+      - heroku/install
+      - heroku/deploy-via-git:
+          force: true
+      - run: npm run backup
 
 workflows:
   heroku_deploy:
