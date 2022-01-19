@@ -16,8 +16,7 @@ jobs:
       - heroku/install
       - heroku/deploy-via-git:
           force: true
-          post-steps:
-            - run: npm run backup
+      - run: npm run backup
 
 workflows:
   heroku_deploy:
