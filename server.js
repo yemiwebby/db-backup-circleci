@@ -8,7 +8,6 @@ const app = express();
 app.use(express.json());
 
 const uri = process.env.MONGODB_URI;
-// mongoose.connect("mongodb://localhost:27017/companiesdb", {});
 mongoose.connect(uri, {});
 
 const db = mongoose.connection;

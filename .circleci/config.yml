@@ -9,7 +9,6 @@ jobs:
       - heroku/install
       - heroku/deploy-via-git:
           force: true
-      - run: npm run backup
   back_up:
     docker:
       - image: cimg/node:17.4.0
