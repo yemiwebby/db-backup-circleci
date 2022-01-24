@@ -5,6 +5,7 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
+    "heroku-postbuild": "mongodump --version",
     "backup": "node backup.js",
     "schedule": "node schedule.js",
     "test": "echo \"Error: no test specified\" && exit 1"
