@@ -1,8 +1,8 @@
 const fs = require("fs");
 const _ = require("lodash");
-require("dotenv").config();
 const exec = require("child_process").exec;
 const path = require("path");
+require("dotenv").config();
 const {
   BlobServiceClient,
   StorageSharedKeyCredential,
@@ -39,14 +39,19 @@ const storeFileOnAzure = async (file) => {
   );
 };
 
+// let cmd = `mongodump --uri=${process.env.MONGODB_URI} --out=${backupDirPath}`;
+let cmd = `mongodump --out=${backupDirPath} --uri ${process.env.MONGODB_URI}`;
+
 // Auto backup function
 const dbAutoBackUp = () => {
-  let myPath = path.join(__dirname, "dump/companiesdb/companies.bson");
-  let cmd = `mongodump --uri=${process.env.MONGODB_URI}`;
+  // let myPath = path.join(__dirname, "dump/companiesdb/companies.bson");
+  // let myPath = path.join(__dirname, "sample");
+  let filePath = backupDirPath + "/companiesdb/companies.bson";
+  // let cmd = `mongodump --uri=${process.env.MONGODB_URI} --out=${myPath}`;
 
   exec(cmd, (error, stdout, stderr) => {
-    console.log([cmd, error, myPath]);
-    storeFileOnAzure(myPath);
+    console.log([cmd, error, backupDirPath]);
+    storeFileOnAzure(filePath);
   });
 };
 
