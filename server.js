@@ -19,5 +19,5 @@ db.once("open", function () {
 app.use(Router);
 
 app.listen(process.env.PORT || 3000, () => {
-  console.log("Server is running at port 3000");
+  console.log("Server for the app is running at port 3000");
 });
