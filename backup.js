@@ -21,14 +21,13 @@ const storeFileOnAzure = async (file) => {
     accountKey
   );
 
-  // List containers
   const blobServiceClient = new BlobServiceClient(
     `https://${account}.blob.core.windows.net`,
     sharedKeyCredential
   );
 
   const container = blobServiceClient.getContainerClient(containerName);
-  const blobName = "sample.bson";
+  const blobName = "backup.bson";
 
   const blockBlobClient = container.getBlockBlobClient(blobName);
 
@@ -39,15 +38,11 @@ const storeFileOnAzure = async (file) => {
   );
 };
 
-// let cmd = `mongodump --uri=${process.env.MONGODB_URI} --out=${backupDirPath}`;
 let cmd = `mongodump --out=${backupDirPath} --uri ${process.env.MONGODB_URI}`;
 
 // Auto backup function
 const dbAutoBackUp = () => {
-  // let myPath = path.join(__dirname, "dump/companiesdb/companies.bson");
-  // let myPath = path.join(__dirname, "sample");
   let filePath = backupDirPath + "/companiesdb/companies.bson";
-  // let cmd = `mongodump --uri=${process.env.MONGODB_URI} --out=${myPath}`;
 
   exec(cmd, (error, stdout, stderr) => {
     console.log([cmd, error, backupDirPath]);

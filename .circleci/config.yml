@@ -2,28 +2,32 @@ version: 2.1
 orbs:
   heroku: circleci/heroku@1.2.6
 jobs:
-  deploy:
+  build:
     executor: heroku/default
     steps:
       - checkout
       - heroku/install
       - heroku/deploy-via-git:
           force: true
-  back_up:
+  schedule_backup:
     docker:
       - image: cimg/node:17.4.0
     steps:
       - checkout
-      - run: node --version
-      - heroku/install
-      - heroku/deploy-via-git:
-          force: true
       - run: npm run backup
 
+parameters:
+  run-schedule:
+    type: boolean
+    default: false
+
 workflows:
-  heroku_deploy:
+  deploy:
+    when:
+      not: << pipeline.parameters.run-schedule >>
     jobs:
-      - deploy
-      # - back_up:
-      #     requires:
-      #       - deploy
+      - build
+  backup:
+    when: << pipeline.parameters.run-schedule >>
+    jobs:
+      - schedule_backup
