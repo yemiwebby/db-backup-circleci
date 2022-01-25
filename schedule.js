@@ -23,7 +23,7 @@ async function scheduleDatabaseBackup() {
         },
         timetable: {
           "per-hour": 30,
-          "hours-of-day": [11, 12],
+          "hours-of-day": [2, 3],
           "days-of-week": ["MON", "TUE", "WED", "THU", "FRI"],
         },
       },
