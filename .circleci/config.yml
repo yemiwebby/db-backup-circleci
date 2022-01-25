@@ -15,13 +15,13 @@ jobs:
     steps:
       - checkout
       - run: npm install
-      - run: npm install mongodb
+      - run: npm install node-mongotools
       - run: npm run backup
 
 parameters:
   run-schedule:
     type: boolean
-    default: false
+    default: true
 
 workflows:
   deploy:

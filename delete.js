@@ -7,7 +7,7 @@ const org = process.env.ORG_NAME;
 const project = process.env.PROJECT_ID;
 const token = process.env.CIRCLECI_TOKEN;
 
-const schedule_ids = ["9076cc7e-862d-46e4-9dc4-25f6f90b4892"];
+const schedule_ids = ["2faec41d-6672-4ad3-b865-c81b74824dee"];
 
 async function deleteScheduleById() {
   for (let i = 0; i < schedule_ids.length; i++) {

@@ -1,4 +1,5 @@
 const fs = require("fs");
+const { MongoTools, MTCommand } = require("node-mongotools");
 const _ = require("lodash");
 const exec = require("child_process").exec;
 const path = require("path");
@@ -38,16 +39,34 @@ const storeFileOnAzure = async (file) => {
   );
 };
 
-let cmd = `mongodump --out=${backupDirPath} --uri ${process.env.MONGODB_URI}`;
+// let cmd = `mongodump --out=${backupDirPath} --uri ${process.env.MONGODB_URI}`;
 
 // Auto backup function
-const dbAutoBackUp = () => {
-  let filePath = backupDirPath + "/companiesdb/companies.bson";
+// const dbAutoBackUp = () => {
+//   let filePath = backupDirPath + "/companiesdb/companies.bson";
 
-  exec(cmd, (error, stdout, stderr) => {
-    console.log([cmd, error, backupDirPath]);
-    storeFileOnAzure(filePath);
-  });
-};
+//   exec(cmd, (error, stdout, stderr) => {
+//     console.log([cmd, error, backupDirPath]);
+//     storeFileOnAzure(filePath);
+//   });
+// };
 
-dbAutoBackUp();
+async function dumpAndRotate(uri, path) {
+  var mt = new MongoTools();
+  var mtc = new MTCommand(); // to reuse log methods
+  // mongodump
+  const dumpResult = await mt
+    .mongodump({ uri, path })
+    .catch(mtc.logError.bind(mtc));
+  if (dumpResult === undefined) {
+    // error case
+    process.exit(1);
+  }
+  // mtc.logSuccess(dumpResult);
+  console.log(dumpResult);
+  storeFileOnAzure(dumpResult.fullFileName);
+}
+
+dumpAndRotate(process.env.MONGODB_URI, backupDirPath);
+
+// dbAutoBackUp();
