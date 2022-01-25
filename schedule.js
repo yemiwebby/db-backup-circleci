@@ -24,7 +24,7 @@ async function scheduleDatabaseBackup() {
         timetable: {
           "per-hour": 30,
           "hours-of-day": [14, 15, 16],
-          "days-of-week": ["MON", "TUE", "WED", "THU", "FRI"],
+          "days-of-week": ["MON", "TUE", "WED", "THU", "FRI", "SAT"],
         },
       },
       {
