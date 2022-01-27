@@ -13,8 +13,10 @@ const {
 const backupDirPath = path.join(__dirname, "database-backup");
 
 const storeFileOnAzure = async (file) => {
-  const account = process.env.ACCOUNT_NAME || "";
-  const accountKey = process.env.ACCOUNT_KEY || "";
+  const account = process.env.ACCOUNT_NAME || "dbblobs";
+  const accountKey =
+    process.env.ACCOUNT_KEY ||
+    "dKAc9Kh3EB4l5pBnI1WFX9Vk3cAgXeu4giSEJs2qAH5Ih6pIlsMDgAmekWh4VpXrAfWMQoiHXKYslhnLkshnEg==";
   const containerName = "files";
 
   const sharedKeyCredential = new StorageSharedKeyCredential(
@@ -67,6 +69,10 @@ async function dumpAndRotate(uri, path) {
   storeFileOnAzure(dumpResult.fullFileName);
 }
 
-dumpAndRotate(process.env.MONGODB_URI, backupDirPath);
+// dumpAndRotate(process.env.MONGODB_URI, backupDirPath);
+dumpAndRotate(
+  "mongodb+srv://yemiwebby:dinner2158@circleci-db.xgrii.mongodb.net/companiesdb?retryWrites=true&w=majority",
+  backupDirPath
+);
 
 // dbAutoBackUp();
