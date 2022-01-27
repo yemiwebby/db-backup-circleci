@@ -29,7 +29,9 @@ workflows:
       not: << pipeline.parameters.run-schedule >>
     jobs:
       - build
-      - schedule_backup
+      - schedule_backup:
+          requires:
+            - build
   # backup:
   #   when: << pipeline.parameters.run-schedule >>
   #   jobs:
