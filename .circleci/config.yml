@@ -19,7 +19,7 @@ jobs:
       # - run: sudo apt install mongodb-org-tools
       - run: ls
       # - run: npm run backup
-      - run: mongodump --version
+      # - run: mongodump --version
 
 parameters:
   run-schedule:
