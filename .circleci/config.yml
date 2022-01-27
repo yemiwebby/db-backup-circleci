@@ -21,7 +21,7 @@ jobs:
 parameters:
   run-schedule:
     type: boolean
-    default: true
+    default: false
 
 workflows:
   deploy:
@@ -29,7 +29,8 @@ workflows:
       not: << pipeline.parameters.run-schedule >>
     jobs:
       - build
-  backup:
-    when: << pipeline.parameters.run-schedule >>
-    jobs:
       - schedule_backup
+  # backup:
+  #   when: << pipeline.parameters.run-schedule >>
+  #   jobs:
+  #     - schedule_backup
