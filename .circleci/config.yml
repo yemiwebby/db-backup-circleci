@@ -14,6 +14,7 @@ jobs:
       - image: cimg/node:17.4.0
     steps:
       - checkout
+      - run: ls -a
       - run: npm install
       - run: npm install mongodb
       - run: npm install node-mongotools
