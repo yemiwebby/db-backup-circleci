@@ -12,13 +12,14 @@ jobs:
   schedule_backup:
     docker:
       - image: cimg/node:17.4.0
+      - image: circleci/mongo:4.4
     steps:
       - checkout
       - run: npm install
-      - run: npm install mongodb
+      - run: sudo apt install mongo-tools
       - run: ls -a
-      - run: npm install node-mongotools
-      - run: npm run backup
+      # - run: npm run backup
+      - run: mongodump --version
 
 parameters:
   run-schedule:
