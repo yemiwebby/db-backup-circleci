@@ -16,7 +16,7 @@ jobs:
     steps:
       - checkout
       - run: npm install
-      - run: sudo apt-get install -y mongodb-org-shell
+      - run: sudo apt install mongodb-org-tools
       - run: ls -a
       # - run: npm run backup
       - run: mongodump --version
