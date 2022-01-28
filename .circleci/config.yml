@@ -17,10 +17,10 @@ jobs:
       - checkout
       - run:
           name: Install MongoDB Tools
-          command: |
-            npm install
-            sudo apt-get update
-            sudo apt-get install mongodb-org-tools
+          # command: |
+          #   npm install
+          #   sudo apt-get update
+          #   sudo apt-get install mongodb-org-tools
       # - run: sudo apt install mongodb-org-tools
       - run: ls
       # - run: npm run backup
