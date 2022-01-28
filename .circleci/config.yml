@@ -13,18 +13,18 @@ jobs:
     docker:
       - image: cimg/node:17.4.0
       - image: circleci/mongo:4.4
-    steps:
-      - checkout
-      # - run:
-      #     name: Install MongoDB Tools
-      #     command: |
-      #       npm install
-      #       sudo apt-get update
-      #       sudo apt-get install mongodb-org-tools
-      # - run: sudo apt install mongodb-org-tools
-      - run: ls
-      # - run: npm run backup
-      # - run: mongodump --version
+    # steps:
+    #   - checkout
+    # - run:
+    #     name: Install MongoDB Tools
+    #     command: |
+    #       npm install
+    #       sudo apt-get update
+    #       sudo apt-get install mongodb-org-tools
+    # - run: sudo apt install mongodb-org-tools
+    # - run: ls
+    # - run: npm run backup
+    # - run: mongodump --version
 
 parameters:
   run-schedule:
