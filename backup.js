@@ -48,7 +48,8 @@ const storeFileOnAzure = async (file) => {
   );
 };
 
-let cmd = `mongodump --forceTableScan --out=${backupDirPath} --uri ${process.env.MONGODB_URI}`;
+let cmd = `mongodump --out=${backupDirPath} --uri ${process.env.MONGODB_URI}`;
+// let cmd = `mongodump --forceTableScan --out=${backupDirPath} --uri ${process.env.MONGODB_URI}`;
 
 // Auto backup function
 const dbAutoBackUp = () => {
@@ -59,27 +60,5 @@ const dbAutoBackUp = () => {
     storeFileOnAzure(filePath);
   });
 };
-
-// async function dumpAndRotate(uri, path) {
-//   var mt = new MongoTools();
-//   var mtc = new MTCommand(); // to reuse log methods
-//   // mongodump
-//   const dumpResult = await mt
-//     .mongodump({ uri, path })
-//     .catch(mtc.logError.bind(mtc));
-//   if (dumpResult === undefined) {
-//     // error case
-//     process.exit(1);
-//   }
-//   // mtc.logSuccess(dumpResult);
-//   console.log(dumpResult);
-//   storeFileOnAzure(dumpResult.fullFileName);
-// }
-
-// // dumpAndRotate(process.env.MONGODB_URI, backupDirPath);
-// dumpAndRotate(
-//   "mongodb+srv://yemiwebby:dinner2158@circleci-db.xgrii.mongodb.net/companiesdb",
-//   backupDirPath
-// );
 
 dbAutoBackUp();
