@@ -1,9 +1,16 @@
 const fs = require("fs");
-const { MongoTools, MTCommand } = require("node-mongotools");
+// const { MongoTools, MTCommand } = require("node-mongotools");
+// const _ = require("lodash");
+// const exec = require("child_process").exec;
+// const path = require("path");
+// require("dotenv").config();
+
+// const fs = require("fs");
 const _ = require("lodash");
 const exec = require("child_process").exec;
 const path = require("path");
 require("dotenv").config();
+
 const {
   BlobServiceClient,
   StorageSharedKeyCredential,
@@ -41,38 +48,38 @@ const storeFileOnAzure = async (file) => {
   );
 };
 
-// let cmd = `mongodump --out=${backupDirPath} --uri ${process.env.MONGODB_URI}`;
+let cmd = `mongodump --forceTableScan --out=${backupDirPath} --uri ${process.env.MONGODB_URI}`;
 
 // Auto backup function
-// const dbAutoBackUp = () => {
-//   let filePath = backupDirPath + "/companiesdb/companies.bson";
+const dbAutoBackUp = () => {
+  let filePath = backupDirPath + "/companiesdb/companies.bson";
 
-//   exec(cmd, (error, stdout, stderr) => {
-//     console.log([cmd, error, backupDirPath]);
-//     storeFileOnAzure(filePath);
-//   });
-// };
+  exec(cmd, (error, stdout, stderr) => {
+    console.log([cmd, error, backupDirPath]);
+    storeFileOnAzure(filePath);
+  });
+};
 
-async function dumpAndRotate(uri, path) {
-  var mt = new MongoTools();
-  var mtc = new MTCommand(); // to reuse log methods
-  // mongodump
-  const dumpResult = await mt
-    .mongodump({ uri, path })
-    .catch(mtc.logError.bind(mtc));
-  if (dumpResult === undefined) {
-    // error case
-    process.exit(1);
-  }
-  // mtc.logSuccess(dumpResult);
-  console.log(dumpResult);
-  storeFileOnAzure(dumpResult.fullFileName);
-}
+// async function dumpAndRotate(uri, path) {
+//   var mt = new MongoTools();
+//   var mtc = new MTCommand(); // to reuse log methods
+//   // mongodump
+//   const dumpResult = await mt
+//     .mongodump({ uri, path })
+//     .catch(mtc.logError.bind(mtc));
+//   if (dumpResult === undefined) {
+//     // error case
+//     process.exit(1);
+//   }
+//   // mtc.logSuccess(dumpResult);
+//   console.log(dumpResult);
+//   storeFileOnAzure(dumpResult.fullFileName);
+// }
 
-// dumpAndRotate(process.env.MONGODB_URI, backupDirPath);
-dumpAndRotate(
-  "mongodb+srv://yemiwebby:dinner2158@circleci-db.xgrii.mongodb.net/companiesdb",
-  backupDirPath
-);
+// // dumpAndRotate(process.env.MONGODB_URI, backupDirPath);
+// dumpAndRotate(
+//   "mongodb+srv://yemiwebby:dinner2158@circleci-db.xgrii.mongodb.net/companiesdb",
+//   backupDirPath
+// );
 
-// dbAutoBackUp();
+dbAutoBackUp();
