@@ -1,9 +1,6 @@
 version: 2.1
 orbs:
   heroku: circleci/heroku@1.2.6
-docker:
-  - image: cimg/node:17.4.0
-  - image: circleci/mongo:4.4
 jobs:
   build:
     executor: heroku/default
@@ -13,14 +10,17 @@ jobs:
       - heroku/deploy-via-git:
           force: true
   schedule_backup:
+    docker:
+      - image: cimg/node:17.4.0
+      # - image: circleci/mongo:4.4
     steps:
       - checkout
-    # - run:
-    #     name: Install MongoDB Tools
-    #     command: |
-    #       npm install
-    #       sudo apt-get update
-    #       sudo apt-get install mongodb-org-tools
+    - run:
+        name: Install MongoDB Tools
+        command: |
+          npm install
+          sudo apt-get update
+          sudo apt-get install mongodb-org-tools
     # - run: sudo apt install mongodb-org-tools
     # - run: ls
     # - run: npm run backup
