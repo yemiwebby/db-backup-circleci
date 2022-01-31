@@ -20,7 +20,7 @@ jobs:
           command: |
             npm install
             sudo apt-get update
-            sudo apt-get install mongodb-org-tools
+            sudo apt-get install -y mongodb
     # - run: sudo apt install mongodb-org-tools
     # - run: ls
     # - run: npm run backup
