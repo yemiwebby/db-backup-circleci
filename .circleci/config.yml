@@ -22,9 +22,9 @@ jobs:
             sudo apt-get update
             sudo apt-get install -y mongodb
             mongodump --version
-    # - run: sudo apt install mongodb-org-tools
-    # - run: ls
-    # - run: npm run backup
+      # - run: sudo apt install mongodb-org-tools
+      # - run: ls
+      - run: npm run backup
     # - run: mongodump --version
 
 parameters:
