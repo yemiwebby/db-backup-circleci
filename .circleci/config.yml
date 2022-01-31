@@ -20,9 +20,9 @@ jobs:
             npm install
             sudo apt-get update
             sudo apt-get install -y mongodb
-      - run: 
+      - run:
           name: Run database back up
-          npm run backup
+          command: npm run backup
 
 parameters:
   run-schedule:
