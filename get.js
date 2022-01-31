@@ -16,7 +16,6 @@ async function getSchedules() {
     },
   });
 
-  //   console.log(res.data);
   console.log(res.data.items[0]);
 }
 
