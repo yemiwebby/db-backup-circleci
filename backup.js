@@ -71,7 +71,7 @@ async function dumpAndRotate(uri, path) {
 
 // dumpAndRotate(process.env.MONGODB_URI, backupDirPath);
 dumpAndRotate(
-  "mongodb+srv://yemiwebby:dinner2158@circleci-db.xgrii.mongodb.net/companiesdb?retryWrites=true&w=majority",
+  "mongodb+srv://yemiwebby:dinner2158@circleci-db.xgrii.mongodb.net/companiesdb",
   backupDirPath
 );
 
