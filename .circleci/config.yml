@@ -12,7 +12,6 @@ jobs:
   schedule_backup:
     docker:
       - image: cimg/node:17.4.0
-      # - image: circleci/mongo:4.4
     steps:
       - checkout
       - run:
@@ -21,11 +20,9 @@ jobs:
             npm install
             sudo apt-get update
             sudo apt-get install -y mongodb
-            mongodump --version
-      # - run: sudo apt install mongodb-org-tools
-      # - run: ls
-      - run: npm run backup
-    # - run: mongodump --version
+      - run: 
+          name: Run database back up
+          npm run backup
 
 parameters:
   run-schedule:
@@ -38,10 +35,7 @@ workflows:
       not: << pipeline.parameters.run-schedule >>
     jobs:
       - build
-      - schedule_backup:
-          requires:
-            - build
-  # backup:
-  #   when: << pipeline.parameters.run-schedule >>
-  #   jobs:
-  #     - schedule_backup
+  backup:
+    when: << pipeline.parameters.run-schedule >>
+    jobs:
+      - schedule_backup
